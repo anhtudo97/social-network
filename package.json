@@ -1,8 +1,13 @@
 {
-    "name": "SocialNetwork",
+    "name": "social-network",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "build": "next build",
+        "start": "NODE_ENV=production node server.js"
+    },
     "dependencies": {
         "@commitlint/cli": "^13.2.1",
         "@commitlint/config-conventional": "^13.2.0",

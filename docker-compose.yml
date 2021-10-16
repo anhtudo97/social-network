@@ -1,0 +1,17 @@
+# Use postgres/example user/password credentials
+version: "3.9"
+
+services:  
+
+  mongodb_social_app:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123
+      MONGO_INITDB_DATABASE: social
+
+    restart: always
+
+    ports:
+      - "27017:27017"
+
