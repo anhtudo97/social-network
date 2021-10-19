@@ -122,3 +122,83 @@ router.put("/", auth, async(req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 });
+
+// @route:  POST /api/auth/forgot-password
+// @desc:   Send password reset email
+router.post("/forgot-password", async(req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) return res.status(404).json({ msg: "User not found" });
+
+        const resetToken = crypto.randomBytes(20).toString("hex");
+        user.resetPasswordToken = crypto
+            .createHash("sha256")
+            .update(resetToken)
+            .digest("hex");
+
+        user.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+
+        const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/reset-password/${resetToken}`;
+
+        const htmlTemplate = await readHtml(
+            path.join(__dirname, "..", "emails", "forgot-password.html")
+        );
+
+        const handlebarsTemplate = handlebars.compile(htmlTemplate);
+        const replacements = { resetUrl };
+        const html = handlebarsTemplate(replacements);
+
+        try {
+            await sendEmail({
+                to: user.email,
+                subject: "Driwwwle - Reset Password",
+                html,
+            });
+        } catch (error) {
+            console.log(err);
+            user.resetPasswordToken = undefined;
+            await user.save();
+            return res.status(500).json({ msg: "Error sending verification email" });
+        }
+
+        await user.save();
+        res.status(200).json({ msg: "Email sent" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Server error" });
+    }
+
+    // @route:  PUT /api/auth/reset-password/:token
+    // @desc:   Reset password
+    router.put("reset-password", async(req, res) => {
+        try {
+            const resetPasswordToken = crypto
+                .createHash("sha256")
+                .update(req.params.token)
+                .digest("hex");
+
+            const user = await User.findOne({
+                resetPasswordToken,
+                resetPasswordExpire: { $gt: Date.now() },
+            });
+
+            if (!user)
+                return res.status(400).json({ msg: "Invalid or expired token" });
+
+            // Set new password
+            user.password = await bcrypt.hash(req.body.password, 10);
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save();
+
+            res.status(200).json({ msg: "Password reset successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ msg: "Server error" });
+        }
+    });
+});
+
+module.exports = router;
