@@ -13,3 +13,15 @@ const addUser = (userId, socketId) => {
         return users
     }
 }
+
+const removeUser = socketId => {
+    const index = users.map(user => user.socketId).indexOf(socketId)
+    users.splice(index, 1)
+    return users
+}
+
+const findConnectedUser = userId => {
+    return users.find(user => user.userId === userId)
+}
+
+module.exports = { addUser, removeUser, findConnectedUser };
