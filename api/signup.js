@@ -97,7 +97,7 @@ router.post("/", async(req, res) => {
         try {
             await sendEmail({
                 to: user.email,
-                subject: "Driwwwle - Account Verification",
+                subject: "ATD3www - Account Verification",
                 html,
             });
         } catch (err) {

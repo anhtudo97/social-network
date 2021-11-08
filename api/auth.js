@@ -153,7 +153,7 @@ router.post("/forgot-password", async(req, res) => {
         try {
             await sendEmail({
                 to: user.email,
-                subject: "Driwwwle - Reset Password",
+                subject: "ATD3www - Reset Password",
                 html,
             });
         } catch (error) {
