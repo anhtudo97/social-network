@@ -10,9 +10,9 @@ import {
   ChatAlt2Icon,
 } from "@heroicons/react/outline";
 
-import Search from "./Search";
+import { Search } from "./Search";
 
-import { logoutUser } from "../utils/auth";
+import { logoutUser } from "../../utils/auth";
 
 const navigation = [
   { name: "Home", href: "/home" },
