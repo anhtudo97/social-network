@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://user-images.githubusercontent.com/34748469/133837934-3584c5a0-e650-46c1-a0c7-7125d30fd145.png" height="100" width="100" />
 </p>
-<h1 align="center">Driwwwle</h1>
+<h1 align="center">ATD3www</h1>
 
 <h3 align="center">The Social Network for Developers</h3>
  
@@ -34,7 +34,7 @@
 
 Clone this repository and install dependencies by running:
 ```
-npm install
+yarn install
 #or
 yarn install
 ```
@@ -58,13 +58,13 @@ NEXT_PUBLIC_BASE_URL = http://localhost:3000
 
 For development mode, run:
 ```
-npm run dev
+yarn run dev
 ```
 
 For production mode, run:
 ```
-npm run build
-npm start
+yarn build
+yarn start
 ```
 
 Visit http://localhost:3000 or your custom port environment variable to view the app.
