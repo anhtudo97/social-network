@@ -44,3 +44,166 @@ router.post("/", auth, upload.array("images", 5), async(req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 });
+
+// @route   GET /api/posts
+// @desc    Get all posts
+router.get("/", async(req, res) => {
+    try {
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 12;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const total = await Post.countDocuments();
+
+        const posts = await Post.find()
+            .skip(startIndex)
+            .limit(limit)
+            .sort({ createdAt: -1 })
+            .populate("user");
+
+        let next = null;
+        if (endIndex < total) next = page + 1;
+
+        res.status(200).json({ posts, next });
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   GET /api/posts/feed
+// @desc    Get posts of following users
+router.get("/feed", auth, async(req, res) => {
+    try {
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 12;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        const user = await Follower.findOne({ user: req.userId }).select(
+            "-followers"
+        );
+
+        const followingUsers = user.following.map((following) => following.user);
+
+        const total = await Post.countDocuments({ user: { $in: followingUsers } });
+
+        const posts = await Post.find({ user: { $in: followingUsers } })
+            .skip(startIndex)
+            .limit(limit)
+            .sort({ createdAt: -1 })
+            .populate("user");
+
+        let next = null;
+        if (endIndex < total) next = page + 1;
+
+        res.status(200).json({ posts, next });
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   GET /api/profile/saves
+// @desc    Get saved posts of user
+router.get("/saves", auth, async(req, res) => {
+    try {
+        const saves = await Post.find({
+            "saves.user": mongoose.Types.ObjectId(req.userId),
+        }).populate("user");
+
+        res.status(200).json(saves);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   GET /api/posts/:postId
+// @desc    Get a post by ID
+router.get("/:postId", async(req, res) => {
+    try {
+        let post = await Post.findById(req.params.postId).populate("user");
+        if (!post) return res.status(404).json({ msg: "Post not found" });
+
+        post.views++;
+        post = await post.save();
+        res.status(200).json(post);
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   PUT /api/posts/:postId
+// @desc    Create a new post
+router.put("/:postId", auth, upload.array("images", 5), async(req, res) => {
+    const {
+        title,
+        description,
+        originalImages,
+        liveDemo,
+        sourceCode,
+        techStack,
+        isOriginalImages,
+    } = req.body;
+
+    if (!isOriginalImages && req.files.length < 1)
+        return res.status(400).json({ msg: "Atleast one image is required" });
+
+    try {
+        let post = await Post.findById(req.params.postId);
+        if (!post) return res.status(404).json({ msg: "Post not found" });
+
+        if (post.user.toString() !== req.userId)
+            return res
+                .status(401)
+                .json({ msg: "You are not authorized to edit this post" });
+
+        const postObj = {
+            title,
+            description,
+            images: JSON.parse(isOriginalImages) ?
+                JSON.parse(originalImages) :
+                req.files.map((file) => file.path),
+            liveDemo,
+            techStack: JSON.parse(techStack),
+        };
+
+        if (sourceCode) postObj.sourceCode = sourceCode;
+
+        post = await Post.findByIdAndUpdate(req.params.postId, postObj, {
+            new: true,
+        });
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   DELETE /api/posts/:postId
+// @desc    Delete a post by ID
+router.delete("/:postId", auth, async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.postId);
+        if (!post) return res.status(404).json({ msg: "Post not found" });
+
+        const user = await User.findById(req.userId);
+        if (post.user.toString() === req.userId || user.role === "root") {
+            await post.remove();
+            res.status(200).json({ msg: "Post deleted" });
+        } else {
+            res
+                .status(401)
+                .json({ msg: "You are not authorized to delete this post" });
+        }
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
+});
+
+// @route   PUT /api/posts/like/:postId
+// @desc    Like or unlike a post
