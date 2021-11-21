@@ -7,7 +7,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 
 import { baseURL } from "../../utils/baseURL";
 
-export const Search = () => {
+const Search = () => {
   const [searchText, setSearchText] = useState("");
 
   const router = useRouter();
@@ -144,3 +144,5 @@ export const Search = () => {
     </div>
   );
 };
+
+export default Search;

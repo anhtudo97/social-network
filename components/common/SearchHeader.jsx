@@ -4,7 +4,7 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-export const SettingsHeader = () => (
+const SettingsHeader = () => (
   <Disclosure as="div" className="relative pb-24 overflow-hidden bg-pink-600">
     {({ open }) => (
       <>
@@ -46,3 +46,5 @@ export const SettingsHeader = () => (
     )}
   </Disclosure>
 );
+
+export default SettingsHeader;

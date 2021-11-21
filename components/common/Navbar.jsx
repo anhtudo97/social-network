@@ -10,7 +10,7 @@ import {
   ChatAlt2Icon,
 } from "@heroicons/react/outline";
 
-import { Search } from "./Search";
+import Search from "./Search";
 
 import { logoutUser } from "../../utils/auth";
 
@@ -21,7 +21,7 @@ const navigation = [
   { name: "Announcements", href: "/announcements" },
 ];
 
-export const Navbar = ({ user, currentPath }) => (
+const Navbar = ({ user, currentPath }) => (
   <Disclosure as="nav" className="bg-white shadow">
     {({ open }) => (
       <>
@@ -273,3 +273,5 @@ export const Navbar = ({ user, currentPath }) => (
     )}
   </Disclosure>
 );
+
+export default Navbar;

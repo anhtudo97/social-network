@@ -41,7 +41,7 @@ const navigation = {
   ],
 };
 
-export const Footer = () => (
+const Footer = () => (
   <footer className="bg-white">
     <div className="py-10 mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
       <nav className="flex flex-wrap justify-center -mx-5 -my-2">
@@ -82,3 +82,5 @@ export const Footer = () => (
     </div>
   </footer>
 );
+
+export default Footer;

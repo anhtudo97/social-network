@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
 
-export const NotFound = (props) => {
+const NotFound = (props) => {
   return (
     <div className="flex flex-col items-center justify-center text-center h-fullscreen">
       <svg
@@ -273,3 +273,5 @@ export const NotFound = (props) => {
     </div>
   );
 };
+
+export default NotFound;

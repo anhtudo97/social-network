@@ -1,11 +1,11 @@
 import nProgress from "nprogress";
 import Router, { useRouter } from "next/router";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 import "nprogress/nprogress.css";
 
-export const Layout = ({ children, user }) => {
+const Layout = ({ children, user }) => {
   const router = useRouter();
 
   Router.onRouteChangeStart = () => nProgress.start();
@@ -48,3 +48,5 @@ export const Layout = ({ children, user }) => {
     </div>
   );
 };
+
+export default Layout;

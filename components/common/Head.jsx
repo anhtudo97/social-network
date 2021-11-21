@@ -1,13 +1,10 @@
 import Head from "next/head";
 
-export const CustomHead = ({ title }) => {
+const CustomHead = ({ title }) => {
   return (
     <Head>
       <title>{title}</title>
-      <meta
-        name="title"
-        content="ATD3www - The Social Network for Developer"
-      />
+      <meta name="title" content="ATD3www - The Social Network for Developer" />
       <meta
         name="description"
         content="Discover creative websites and developers across the globe. "
@@ -42,5 +39,7 @@ export const CustomHead = ({ title }) => {
 };
 
 CustomHead.defaultProps = {
-  title: 'Driwwwle',
+  title: "Driwwwle",
 };
+
+export default CustomHead;

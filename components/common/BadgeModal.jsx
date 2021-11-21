@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export const BadgeModal = ({ open, setOpen, badge }) => (
+const BadgeModal = ({ open, setOpen, badge }) => (
   <Transition.Root show={open} as={Fragment}>
     <Dialog
       as="div"
@@ -78,3 +78,5 @@ export const BadgeModal = ({ open, setOpen, badge }) => (
     </Dialog>
   </Transition.Root>
 );
+
+export default BadgeModal;
