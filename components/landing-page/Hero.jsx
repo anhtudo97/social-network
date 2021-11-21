@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export const Hero = () => (
+const Hero = () => (
   <div className="bg-gray-50">
     <div className="relative overflow-hidden">
       <div className="absolute inset-y-0 w-full h-full" aria-hidden="true">
@@ -124,6 +124,8 @@ export const Hero = () => (
         </motion.div>
       </div>
     </div>
-    <div className="bg-pink-600 pb"/>
+    <div className="bg-pink-600 pb" />
   </div>
 );
+
+export default Hero;

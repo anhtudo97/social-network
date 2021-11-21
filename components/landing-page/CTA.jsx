@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const CTA = () => (
+const CTA = () => (
   <div className="bg-pink-500">
     <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
       <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -19,3 +19,5 @@ export const CTA = () => (
     </div>
   </div>
 );
+
+export default CTA;
