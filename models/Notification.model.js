@@ -1,22 +1,22 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
 
-const notificationSchema = new Schema({
+const notificationSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
     },
     notifications: [{
         type: {
-            type: "String",
-            enum: ["like", "comment", "follow", "badge", "reply"],
+            type: 'String',
+            enum: ['like', 'comment', 'follow', 'badge', 'reply'],
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: 'User',
         },
         post: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Post",
+            ref: 'Post',
         },
         commentId: {
             type: String,
@@ -31,4 +31,4 @@ const notificationSchema = new Schema({
     }, ],
 });
 
-module.exports = model("notification", notificationSchema);
+module.exports = mongoose.model('Notification', notificationSchema);
