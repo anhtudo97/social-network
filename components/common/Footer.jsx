@@ -43,8 +43,11 @@ const navigation = {
 
 const Footer = () => (
   <footer className="bg-white">
-    <div className="py-10 mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
-      <nav className="flex flex-wrap justify-center -mx-5 -my-2">
+    <div className="max-w-7xl mx-auto py-10 px-4 overflow-hidden sm:px-6 lg:px-8">
+      <nav
+        className="-mx-5 -my-2 flex flex-wrap justify-center"
+        aria-label="Footer"
+      >
         {navigation.main.map((item) => (
           <div key={item.name} className="px-5">
             <Link href={item.href}>
@@ -55,7 +58,7 @@ const Footer = () => (
           </div>
         ))}
       </nav>
-      <div className="flex justify-center space-x-6 mt8">
+      <div className="mt-8 flex justify-center space-x-6">
         {navigation.social.map((item) => (
           <a
             key={item.name}
@@ -63,14 +66,14 @@ const Footer = () => (
             className="text-gray-400 hover:text-gray-500"
           >
             <span className="sr-only">{item.name}</span>
-            <item.icon className="w-6 h-6" aria-hidden="true" />
+            <item.icon className="h-6 w-6" aria-hidden="true" />
           </a>
         ))}
       </div>
-      <p className="mt-6 text-base text-center text-gray-400">
+      <p className="text-center text-base mt-6 text-gray-400">
         &copy; {new Date().getFullYear()} Driwwwle. Powered by{" "}
         <a
-          className="transition hover:text-green-600"
+          className="hover:text-green-600 transition"
           href="http://tealpod.com/"
           target="_blank"
           rel="noreferrer"
