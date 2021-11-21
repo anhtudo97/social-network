@@ -8,8 +8,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastContainer } from "react-toastify";
 import { parseCookies, destroyCookie } from "nookies";
 
-import { Head } from "../components/common/Head";
-import { Layout } from "../components/common/Layout";
+import Head from "../components/common/Head";
+import Layout from "../components/common/Layout";
 // import NewFeatureModal from "../components/NewFeatureModal";
 
 import "tailwindcss/tailwind.css";
