@@ -1,16 +1,17 @@
-import { Fragment } from "react";
-import { useRouter } from "next/router";
-import { Dialog, Transition } from "@headlessui/react";
-import { EmojiHappyIcon } from "@heroicons/react/outline";
+import { Fragment } from 'react';
+import { useRouter } from 'next/router';
+import { Dialog, Transition } from '@headlessui/react';
+import { EmojiHappyIcon } from '@heroicons/react/outline';
 
 const EmailConfirmModal = ({ open, setOpen }) => {
   const router = useRouter();
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
-        as={div}
+        as="div"
         static
-        className="fixed z-10 inset-0 overflow-auto"
+        className="fixed z-10 inset-0 overflow-y-auto"
         open={open}
         onClose={setOpen}
       >
@@ -58,9 +59,9 @@ const EmailConfirmModal = ({ open, setOpen }) => {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Please be sure to check the{" "}
+                      Please be sure to check the{' '}
                       <span className="font-semibold">promotions tab</span> as
-                      well as your{" "}
+                      well as your{' '}
                       <span className="font-semibold">spam folder</span> if you
                       don't receive your verification email within the next
                       couple of minutes.
@@ -74,7 +75,7 @@ const EmailConfirmModal = ({ open, setOpen }) => {
                   className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-600 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:text-sm"
                   onClick={() => {
                     setOpen(false);
-                    router.push("/login");
+                    router.push('/login');
                   }}
                 >
                   Got it, thanks!
