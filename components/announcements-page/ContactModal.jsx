@@ -3,7 +3,7 @@ import { SupportIcon } from '@heroicons/react/outline'
 import { Dialog, Transition } from '@headlessui/react'
 import { FaDiscord, FaTwitter, FaGithub } from 'react-icons/fa'
 
-const BadgeModal = ({ open, setOpen, badge }) => {
+const ContactModal = ({ open, setOpen, badge }) => {
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -105,4 +105,4 @@ const BadgeModal = ({ open, setOpen, badge }) => {
     )
 }
 
-export default BadgeModal
+export default ContactModal
