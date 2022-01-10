@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
+import Link from 'next/link';
+import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
 
-const NotFound = (props) => {
+function NotFound(props) {
   return (
-    <div className="flex flex-col items-center justify-center text-center h-fullscreen">
+    <div className="flex flex-col h-fullscreen justify-center items-center text-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1920 1080"
@@ -12,7 +12,7 @@ const NotFound = (props) => {
       >
         <style>
           {
-            ".prefix__st1{fill:#fff}.prefix__st2{fill:#274d76}.prefix__st3{fill:#fff3a1}.prefix__st4{fill:#f2bdba}.prefix__st5{fill:#93b4f6}.prefix__st6{fill:#74baab}"
+            '.prefix__st1{fill:#fff}.prefix__st2{fill:#274d76}.prefix__st3{fill:#fff3a1}.prefix__st4{fill:#f2bdba}.prefix__st5{fill:#93b4f6}.prefix__st6{fill:#74baab}'
           }
         </style>
         <g id="prefix__BG">
@@ -257,21 +257,21 @@ const NotFound = (props) => {
           />
         </g>
       </svg>
-      <h1 className="text-3xl font-bold text-pink-600 md:text-4xl">
+      <h1 className="text-3xl md:text-4xl font-bold text-pink-600">
         Uh oh, are you lost?
       </h1>
-      <p className="mt-4 text-gray-500 text-md md:text-lg">
+      <p className="text-gray-500 mt-4 text-md md:text-lg">
         The page you were looking for does not exist or might have been removed.
         Sorry!
       </p>
       <Link href="/home">
-        <a className="flex items-center mt-6 font-semibold text-pink-600">
-          <ArrowCircleLeftIcon className="w-5 h-5" />
+        <a className="text-pink-600 mt-6 flex items-center font-semibold">
+          <ArrowCircleLeftIcon className="h-5 w-5" />
           <span className="ml-2">Go back</span>
         </a>
       </Link>
     </div>
   );
-};
+}
 
 export default NotFound;

@@ -35,7 +35,7 @@ const NotificationItem = ({ notification, index, length }) => {
               </Link>
               <div className="min-w-0 flex justify-between w-full">
                 <div className="md:ml-2 ml-0">
-                  <div className="text-sm text-gray-500">
+                  <div className="text-md text-gray-500">
                     <Link href={`/${notification.user.username}`}>
                       <a className="font-medium text-gray-900 hover:text-pink-600">
                         {notification.user.username}
@@ -50,7 +50,7 @@ const NotificationItem = ({ notification, index, length }) => {
                   </div>
                   <p className="mt-1 text-gray-900">{notification.text}</p>
                 </div>
-                <p className="text-gray-500 ml-2 text-xs">
+                <p className="text-gray-500 ml-2 text-sm">
                   {formatDistanceToNowStrict(new Date(notification.date), {
                     addSuffix: true,
                   })}
@@ -77,7 +77,7 @@ const NotificationItem = ({ notification, index, length }) => {
               </Link>
               <div className="min-w-0 flex justify-between w-full">
                 <div className="md:ml-2 ml-0">
-                  <div className="text-sm text-gray-500">
+                  <div className="text-md text-gray-500">
                     <Link href={`/${notification.user.username}`}>
                       <a className="font-medium text-gray-900 hover:text-pink-600">
                         {notification.user.username}
@@ -92,7 +92,7 @@ const NotificationItem = ({ notification, index, length }) => {
                   </div>
                   <p className="mt-1 text-gray-900">{notification.text}</p>
                 </div>
-                <p className="text-gray-500 ml-2 text-xs">
+                <p className="text-gray-500 ml-2 text-sm">
                   {formatDistanceToNowStrict(new Date(notification.date), {
                     addSuffix: true,
                   })}
@@ -118,7 +118,7 @@ const NotificationItem = ({ notification, index, length }) => {
                 </div>
               </Link>
               <div className="min-w-0 w-full flex justify-between py-1.5">
-                <div className="text-sm text-gray-500 md:ml-2 ml-0">
+                <div className="text-md text-gray-500 md:ml-2 ml-0">
                   <Link href={`/${notification.user.username}`}>
                     <a className="font-medium text-gray-900 hover:text-pink-600">
                       {notification.user.username}
@@ -126,7 +126,7 @@ const NotificationItem = ({ notification, index, length }) => {
                   </Link>{' '}
                   started following you
                 </div>
-                <p className="text-gray-700 ml-2 text-xs">
+                <p className="text-gray-700 ml-2 text-sm">
                   {formatDistanceToNowStrict(new Date(notification.date), {
                     addSuffix: true,
                   })}
@@ -152,7 +152,7 @@ const NotificationItem = ({ notification, index, length }) => {
                 </div>
               </Link>
               <div className="min-w-0 w-full flex justify-between py-1.5">
-                <div className="text-sm text-gray-500 md:ml-2 ml-0">
+                <div className="text-md text-gray-500 md:ml-2 ml-0">
                   <Link href={`/${notification.user.username}`}>
                     <a className="font-medium text-gray-900 hover:text-pink-600">
                       {notification.user.username}
@@ -165,7 +165,7 @@ const NotificationItem = ({ notification, index, length }) => {
                     </a>
                   </Link>
                 </div>
-                <p className="text-gray-700 ml-2 text-xs">
+                <p className="text-gray-700 ml-2 text-sm">
                   {formatDistanceToNowStrict(new Date(notification.date), {
                     addSuffix: true,
                   })}
@@ -191,14 +191,14 @@ const NotificationItem = ({ notification, index, length }) => {
                 </div>
               </Link>
               <div className="min-w-0 w-full flex justify-between py-1.5">
-                <div className="text-sm text-gray-500 md:ml-2 ml-0">
+                <div className="text-md text-gray-500 md:ml-2 ml-0">
                   You have been awarded the{' '}
                   <span className="font-medium text-gray-900">
                     {notification.text} badge
                   </span>
                   .
                 </div>
-                <p className="text-gray-700 ml-2 text-xs">
+                <p className="text-gray-700 ml-2 text-sm">
                   {formatDistanceToNowStrict(new Date(notification.date), {
                     addSuffix: true,
                   })}

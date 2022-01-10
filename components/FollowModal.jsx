@@ -1,12 +1,12 @@
-import axios from "axios";
-import Link from "next/link";
-import Image from "next/image";
-import { useQuery } from "react-query";
-import { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { UserGroupIcon } from "@heroicons/react/outline";
+import axios from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useQuery } from 'react-query';
+import { Fragment, useRef } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { UserGroupIcon } from '@heroicons/react/outline';
 
-import baseURL from "../utils/baseURL";
+import baseURL from '../utils/baseURL';
 
 const FollowModal = ({ open, setOpen, username, statsToShow }) => {
   const cancelButtonRef = useRef(null);
@@ -20,7 +20,7 @@ const FollowModal = ({ open, setOpen, username, statsToShow }) => {
       return data;
     },
     {
-      enabled: true,
+      enabled: open,
     }
   );
 
@@ -53,7 +53,6 @@ const FollowModal = ({ open, setOpen, username, statsToShow }) => {
             >
               &#8203;
             </span>
-
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
