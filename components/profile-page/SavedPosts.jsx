@@ -1,24 +1,23 @@
-import axios from "axios";
-import cookie from "js-cookie";
-import { useQuery } from "react-query";
+import axios from 'axios';
+import cookie from 'js-cookie';
+import { useQuery } from 'react-query';
 
-import PostCard from "../PostCard";
+import PostCard from '../PostCard';
 
-import baseURL from "../../utils/baseURL";
+import baseURL from '../../utils/baseURL';
 
 const SavedPosts = ({ user }) => {
-  const { data, isLoading } = useQuery(["saves", user._id], async () => {
+  const { data, isLoading } = useQuery(['saves', user._id], async () => {
     const { data } = await axios.get(`${baseURL}/api/posts/saves`, {
       headers: {
-        Authorization: cookie.get("token"),
+        Authorization: cookie.get('token'),
       },
     });
-
     return data;
   });
 
   if (isLoading) {
-    return <p>Loading ...</p>;
+    return <p>Loading...</p>;
   }
 
   if (data.length === 0) {

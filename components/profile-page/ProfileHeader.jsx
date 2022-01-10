@@ -1,19 +1,19 @@
-import axios from "axios";
-import Link from "next/Link";
-import Image from "next/Image";
-import cookie from "js-cookie";
-import { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import axios from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
+import cookie from 'js-cookie';
+import { useState, useEffect } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   UserAddIcon,
   CogIcon,
   LoginIcon,
   CheckCircleIcon,
-} from "@heroicons/react/outline";
+} from '@heroicons/react/outline';
 
-import FollowModal from "../common/FollowModal";
+import FollowModal from '../../components/FollowModal';
 
-import baseURL from "../../utils/baseURL";
+import baseURL from '../../utils/baseURL';
 
 const ProfileHeader = ({ profile, followers, following, user }) => {
   const isFollowing =
@@ -27,17 +27,17 @@ const ProfileHeader = ({ profile, followers, following, user }) => {
       const { data } = await axios.post(
         `${baseURL}/api/profile/follow/${profile.user._id}`,
         {},
-        { headers: { Authorization: cookie.get("token") } }
+        { headers: { Authorization: cookie.get('token') } }
       );
       return data;
     },
     {
       onSuccess: (data) => {
-        const old = queryClient.getQueriesData([
-          "profiles",
+        const old = queryClient.getQueryData([
+          'profiles',
           profile.user.username,
         ]);
-        queryClient.setQueriesData(["profiles", profile.user.username], {
+        queryClient.setQueryData(['profiles', profile.user.username], {
           ...old,
           followers: data,
         });
@@ -45,8 +45,11 @@ const ProfileHeader = ({ profile, followers, following, user }) => {
     }
   );
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [statsToShow, setStatsToShow] = useState('followers');
+
   useEffect(() => {
-    document.title = `${profile.user.name}'s Profile on ATD3`;
+    document.title = `${profile.user.name}'s Profile on Driwwwle`;
   }, [profile]);
 
   return (
@@ -67,17 +70,17 @@ const ProfileHeader = ({ profile, followers, following, user }) => {
           <h3 className="mb-2">
             <span
               onClick={() => {
-                setStatsToShow("followers");
+                setStatsToShow('followers');
                 setModalOpen(true);
               }}
               className="hover:text-pink-600 cursor-pointer"
             >
               {followers.length} Followers
-            </span>{" "}
-            |{" "}
+            </span>{' '}
+            |{' '}
             <span
               onClick={() => {
-                setStatsToShow("following");
+                setStatsToShow('following');
                 setModalOpen(true);
               }}
               className="hover:text-pink-600 cursor-pointer"
@@ -126,4 +129,4 @@ const ProfileHeader = ({ profile, followers, following, user }) => {
   );
 };
 
-export default ProfileHeader
+export default ProfileHeader;

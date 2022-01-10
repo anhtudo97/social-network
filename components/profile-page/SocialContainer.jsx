@@ -4,8 +4,8 @@ import {
   AiFillTwitterCircle,
   AiFillYoutube,
   AiFillInstagram,
-} from "react-icons/ai";
-import { GoBrowser } from "react-icons/go";
+} from 'react-icons/ai';
+import { GoBrowser } from 'react-icons/go';
 
 const SocialContainer = ({ social }) => {
   return (
@@ -37,7 +37,7 @@ const SocialContainer = ({ social }) => {
           rel="noreferrer"
           className="flex items-center mb-2 text-gray-700 cursor-pointer hover:text-pink-600 transition"
         >
-          <AiFillTwitterCircle className="h-6 w-6 mr-2" />{" "}
+          <AiFillTwitterCircle className="h-6 w-6 mr-2" />{' '}
           <p>{social?.twitter}</p>
         </a>
       )}
@@ -48,7 +48,7 @@ const SocialContainer = ({ social }) => {
           rel="noreferrer"
           className="flex items-center mb-2 text-gray-700 cursor-pointer hover:text-pink-600 transition"
         >
-          <AiFillInstagram className="h-6 w-6 mr-2" />{" "}
+          <AiFillInstagram className="h-6 w-6 mr-2" />{' '}
           <p>{social?.instagram}</p>
         </a>
       )}
