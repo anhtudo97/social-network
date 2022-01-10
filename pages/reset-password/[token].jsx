@@ -1,16 +1,16 @@
-import axios from "axios";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { useMutation } from "react-query";
-import { AiOutlineLoading } from "react-icons/ai";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import { AiOutlineLoading } from 'react-icons/ai';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
-import baseURL from "../../utils/baseURL";
+import baseURL from '../../utils/baseURL';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -31,16 +31,16 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return toast.error("Password do not match");
+      return toast.error('Passwords do not match');
     }
 
     try {
       await mutation.mutateAsync();
-      toast.success("Your password has been updated");
-      router.push("/login");
-    } catch (error) {
+      toast.success('Your password has been updated');
+      router.push('/login');
+    } catch (err) {
       toast.error(
-        error.response?.data?.msg || "There was an error. Try again later."
+        err.response?.data?.msg || 'There was an error. Try again later.'
       );
     }
   };
@@ -83,7 +83,7 @@ const ResetPassword = () => {
                   )}
                 </div>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   id="password"
                   className="focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -118,7 +118,7 @@ const ResetPassword = () => {
                   )}
                 </div>
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   name="confirmPassword"
                   id="confirm-password"
                   className="focus:ring-pink-500 focus:border-pink-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -152,11 +152,7 @@ const ResetPassword = () => {
 };
 
 export function getServerSideProps() {
-  return {
-    props: {
-      title: "Reset Your Password",
-    },
-  };
+  return { props: { title: 'Reset Your Password' } };
 }
 
 export default ResetPassword;

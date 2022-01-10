@@ -1,22 +1,20 @@
-import axios from "axios";
-import Link from "next/Link";
-import Image from "next/Image";
-import { useState } from "react";
-import { userRouter } from "next/router";
-import { QueryClient, useQuery } from "react-query";
-import { dehydrate } from "react-query/hydration";
+import axios from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { QueryClient, useQuery } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
-import PostCard from "../components/common/PostCard";
-import BadgeModal from "../components/common/BadgeModal";
-import NotFound from "../components/common/404";
+import PostCard from '../components/PostCard';
+import BadgeModal from '../components/BadgeModal';
+import ProfileHeader from '../components/profile-page/ProfileHeader';
+import SavedPosts from '../components/profile-page/SavedPosts';
+import ProfileTabs from '../components/profile-page/ProfileTabs';
+import SocialContainer from '../components/profile-page/SocialContainer';
+import NotFound from '../components/404';
 
-import ProfileHeader from "../components/profile-page/ProfileHeader";
-import SavedPosts from "../components/profile-page/SavedPosts";
-import ProfileTabs from "../components/profile-page/ProfileTabs";
-import Statistics from "../components/profile-page/Statistics";
-import SocialContainer from "../components/profile-page/SocialContainer";
-
-import baseURL from "../utils/baseURL";
+import baseURL from '../utils/baseURL';
 
 const getProfile = async (username) => {
   const { data } = await axios.get(`${baseURL}/api/profile/${username}`);
@@ -24,14 +22,14 @@ const getProfile = async (username) => {
 };
 
 const ProfilePage = ({ user }) => {
-  const [currentTab, setCurrentTab] = useState("Posts");
+  const [currentTab, setCurrentTab] = useState('Posts');
   const [currentBadge, setCurrentBadge] = useState({});
   const [badgeModalOpen, setBadgeModalOpen] = useState(false);
 
   const router = useRouter();
   const { username } = router.query;
 
-  const { data } = useQuery(["profiles", username], () => getProfile(username));
+  const { data } = useQuery(['profiles', username], () => getProfile(username));
 
   if (!data) return <NotFound />;
 
@@ -51,7 +49,7 @@ const ProfilePage = ({ user }) => {
           profile={data.profile.user._id}
         />
         <div className="grid gap-x-5 gap-y-7 place-items-start grid-cols-auto-fill">
-          {currentTab === "Posts" &&
+          {currentTab === 'Posts' &&
             (data.posts.length === 0 ? (
               <p className="text-lg mt-2 text-pink-600">
                 User does not have any posts yet
@@ -63,7 +61,7 @@ const ProfilePage = ({ user }) => {
             ))}
         </div>
 
-        {currentTab === "About" && (
+        {currentTab === 'About' && (
           <div className="w-full flex flex-wrap">
             <div className="w-full md:w-2/3">
               <div className="mb-6">
@@ -125,8 +123,7 @@ const ProfilePage = ({ user }) => {
             )}
           </div>
         )}
-        {currentTab === "Saved" && <SavedPosts user={user} />}
-        {currentTab === "Statistics" && <Statistics posts={data.posts} />}
+        {currentTab === 'Saved' && <SavedPosts user={user} />}
       </div>
     </>
   );
@@ -135,14 +132,10 @@ const ProfilePage = ({ user }) => {
 export async function getServerSideProps(ctx) {
   const { username } = ctx.params;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["profiles", username], () =>
+  await queryClient.prefetchQuery(['profiles', username], () =>
     getProfile(username)
   );
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+  return { props: { dehydratedState: dehydrate(queryClient) } };
 }
 
 export default ProfilePage;

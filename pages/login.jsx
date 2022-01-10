@@ -1,32 +1,32 @@
-import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
-import { toast } from "react-toastify";
-import { AiOutlineLoading } from "react-icons/ai";
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { AiOutlineLoading } from 'react-icons/ai';
 import {
   LockClosedIcon,
   MailIcon,
   EyeIcon,
   EyeOffIcon,
-} from "@heroicons/react/outline";
+} from '@heroicons/react/outline';
 
-import { loginUser } from "../utils/auth";
+import { loginUser } from '../utils/auth';
 
 const Login = () => {
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
-  const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
   const { email, password } = user;
 
-  const handleChange = useCallback((e) => {
+  const handleChange = (e) => {
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-  }, []);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,6 @@ const Login = () => {
     const isUser = Object.values({ email, password }).every((item) =>
       Boolean(item)
     );
-
     isUser ? setSubmitDisabled(false) : setSubmitDisabled(true);
   }, [user]);
 
@@ -114,7 +113,7 @@ const Login = () => {
                   )}
                 </div>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   id="password"
                   className="focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
@@ -126,7 +125,6 @@ const Login = () => {
               </div>
             </div>
           </div>
-
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link href="/forgot-password">
@@ -168,7 +166,7 @@ const Login = () => {
 };
 
 export function getServerSideProps() {
-  return { props: { title: "Login in ATD3www" } };
+  return { props: { title: 'Login to Driwwwle' } };
 }
 
 export default Login;

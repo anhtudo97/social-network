@@ -13,7 +13,6 @@ import PasswordSettings from '../components/settings-page/PasswordSettings';
 
 import baseURL from '../utils/baseURL';
 
-
 const getProfile = async (token) => {
   const { data } = await axios.get(`${baseURL}/api/profile`, {
     headers: { Authorization: token },
@@ -22,12 +21,14 @@ const getProfile = async (token) => {
 };
 
 const SettingsPage = ({ user }) => {
-  const [tab, setTab] = useState('user')
+  const [tab, setTab] = useState('user');
 
-  const { data: profile } = useQuery(['profile'], () => getProfile(cookie.get('token')))
+  const { data: profile } = useQuery(['profile'], () =>
+    getProfile(cookie.get('token'))
+  );
 
   return (
-    <>
+    <div>
       <SettingsHeader />
       <main className="relative -mt-32">
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
@@ -41,15 +42,15 @@ const SettingsPage = ({ user }) => {
           </div>
         </div>
       </main>
-    </>
-  )
-}
+    </div>
+  );
+};
 
 export async function getServerSideProps(ctx) {
-  const { token } = parseCookies(ctx)
+  const { token } = parseCookies(ctx);
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['profile'], () => getProfile(token))
+  await queryClient.prefetchQuery(['profile'], () => getProfile(token));
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
