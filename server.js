@@ -82,7 +82,6 @@ nextApp.prepare().then(() => {
     app.use('/api/recommendations', require('./api/recommendations'));
 
     app.all('*', (req, res) => handle(req, res));
-
     server.listen(PORT, (err) => {
         if (err) throw err;
         console.log(`Express server running on port ${PORT}`);
