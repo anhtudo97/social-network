@@ -1,12 +1,12 @@
-import axios from 'axios';
-import cookie from 'js-cookie';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { useQuery, useMutation } from 'react-query';
+import axios from "axios";
+import cookie from "js-cookie";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { AiOutlineLoading } from "react-icons/ai";
+import { useQuery, useMutation } from "react-query";
 
-import baseURL from '../../utils/baseURL';
+import baseURL from "../../utils/baseURL";
 
 const UserSettings = ({ user }) => {
   const [name, setName] = useState(user.name);
@@ -16,7 +16,7 @@ const UserSettings = ({ user }) => {
   const router = useRouter();
 
   const { isLoading, isSuccess } = useQuery(
-    ['checkUsername', username],
+    ["checkUsername", username],
     async () => {
       const CancelToken = axios.CancelToken;
       const source = CancelToken.source();
@@ -39,25 +39,29 @@ const UserSettings = ({ user }) => {
   const mutation = useMutation(async (formdata) => {
     await axios.put(`${baseURL}/api/auth`, formdata, {
       headers: {
-        Authorization: cookie.get('token'),
-        'Content-Type': 'multipart/form-data',
+        Authorization: cookie.get("token"),
+        "Content-Type": "multipart/form-data",
       },
     });
   });
 
+  useEffect(() => {
+    console.log(profilePic);
+  }, [profilePic]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
-    formdata.append('name', name);
-    formdata.append('username', username);
-    formdata.append('profilePic', profilePic);
+    formdata.append("name", name);
+    formdata.append("username", username);
+    formdata.append("profilePic", profilePic);
 
     try {
       await mutation.mutateAsync(formdata);
-      toast.success('User settings have been updated');
-      router.push('/home');
+      toast.success("User settings have been updated");
+      // router.push("/home");
     } catch (err) {
-      toast.error(err.response?.data?.msg || 'Please recheck your inputs');
+      toast.error(err.response?.data?.msg || "Please recheck your inputs");
     }
   };
 

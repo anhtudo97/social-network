@@ -1,8 +1,8 @@
-import axios from 'axios';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { AiOutlineLoading } from 'react-icons/ai';
+import axios from "axios";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { AiOutlineLoading } from "react-icons/ai";
 import {
   LockClosedIcon,
   MailIcon,
@@ -12,21 +12,21 @@ import {
   EyeOffIcon,
   CheckIcon,
   XIcon,
-} from '@heroicons/react/outline';
+} from "@heroicons/react/outline";
 
-import EmailConfirmModal from '../components/EmailConfirmModal';
+import EmailConfirmModal from "../components/EmailConfirmModal";
 
-import baseURL from '../utils/baseURL';
-import { registerUser } from '../utils/auth';
+import baseURL from "../utils/baseURL";
+import { registerUser } from "../utils/auth";
 
 const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
 let cancel;
 
 const Signup = () => {
   const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +34,7 @@ const Signup = () => {
   const [formLoading, setFormLoading] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [usernameLoading, setUsernameLoading] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(false);
 
@@ -62,13 +62,13 @@ const Signup = () => {
         }),
       });
       if (error !== null) setError(null);
-      if (res.data.msg === 'Username available') {
+      if (res.data.msg === "Username available") {
         setUsernameAvailable(true);
         setUser((prevState) => ({ ...prevState, username }));
       }
     } catch (err) {
       setUsernameAvailable(false);
-      setError('Username not available');
+      setError("Username not available");
     }
     setUsernameLoading(false);
   };
@@ -81,7 +81,7 @@ const Signup = () => {
   }, [user]);
 
   useEffect(() => {
-    username === '' ? setUsernameAvailable(false) : checkUsername();
+    username === "" ? setUsernameAvailable(false) : checkUsername();
   }, [username]);
 
   return (
@@ -135,14 +135,14 @@ const Signup = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  {usernameLoading || username === '' ? (
+                  {usernameLoading || username === "" ? (
                     <DotsCircleHorizontalIcon
                       className={`h-5 w-5 text-gray-400 ${
-                        usernameLoading && 'animate-spin'
+                        usernameLoading && "animate-spin"
                       }`}
                       aria-hidden="true"
                     />
-                  ) : username !== '' && usernameAvailable ? (
+                  ) : username !== "" && usernameAvailable ? (
                     <CheckIcon className="h-5 w-5 text-gray-400" />
                   ) : (
                     <XIcon className="h-5 w-5 text-gray-400" />
@@ -153,7 +153,7 @@ const Signup = () => {
                   name="username"
                   id="username"
                   className={`focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${
-                    username !== '' && !usernameAvailable ? 'bg-red-100' : ''
+                    username !== "" && !usernameAvailable ? "bg-red-100" : ""
                   }`}
                   placeholder="something_legendary"
                   value={username}
@@ -167,7 +167,7 @@ const Signup = () => {
                   }}
                 />
               </div>
-              {username !== '' && !usernameLoading && !usernameAvailable && (
+              {username !== "" && !usernameLoading && !usernameAvailable && (
                 <small className="text-xs text-red-600">
                   This username is invalid or not available
                 </small>
@@ -234,7 +234,7 @@ const Signup = () => {
                   )}
                 </div>
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
                   className="focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
@@ -282,7 +282,7 @@ const Signup = () => {
 };
 
 export function getServerSideProps() {
-  return { props: { title: 'Sign Up to Driwwwle' } };
+  return { props: { title: "Sign Up to Driwwwle" } };
 }
 
 export default Signup;
